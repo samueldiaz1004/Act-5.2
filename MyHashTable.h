@@ -13,8 +13,9 @@ class MyHashTable{
         MyLinkedList* tabla;
         void rehashing();
         int getPos(string key);
-        void put(string key, int value, vector<string> fecha);
+        void put(string key, int date);
         int get(string key);
+        void update(int date);
 
     public:
         MyHashTable(string archivo);

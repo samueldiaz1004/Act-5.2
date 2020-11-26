@@ -8,17 +8,17 @@ using namespace std;
 struct MyNodoLL{
     string key;                 // direccion ip
     int access;                 // num de accesos
-    vector<string> date;        // lista de fechas
+    vector<int> date;        // lista de fechas
     MyNodoLL* next;
 
-    MyNodoLL(string key, int access, vector<string> date, MyNodoLL* next){
+    MyNodoLL(string key, int date, MyNodoLL* next){
         this->key = key;
-        this->access = access;
-        this->date = date;
+        this->access = 1;
+        this->date.push_back(date);
         this->next = next;
     }
 
-    MyNodoLL(string key,int access, vector<string> date):MyNodoLL(key, access, date, nullptr){}
+    MyNodoLL(string key, int date):MyNodoLL(key, date, nullptr){}
 };
 
 class MyLinkedList{
@@ -32,19 +32,8 @@ class MyLinkedList{
         int length();
         bool isEmpty();
         MyNodoLL* getAt(int pos);
-        int getAt(string key); // regresa num de accesos
-        void insertFirst(string key, int access, vector<string> date);
+        int getAt(string key);
+        void insertFirst(string key, int date);
         void removeFirst();
-        /*/
-        friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
-            MyNodoLL* current=ll.head;
-            for(int i=0;i<ll.size;i++){
-                os<<"["<<current->key<<",";
-                os<<current->data<<"]";
-                current=current->next;
-            }
-            return os;
-        }
-        /*/
 };
 #endif

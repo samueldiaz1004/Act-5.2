@@ -14,6 +14,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    MyHashTable ht("bitcora2.txt");
+
     return 0;
 }

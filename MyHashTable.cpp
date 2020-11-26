@@ -4,7 +4,7 @@ using namespace std;
 
 MyHashTable::MyHashTable(string archivo){
     this->size=0;
-    this->sizeA=11;
+    this->sizeA=4027;   // Ajustar tamaño inicial si es necesario
     this->tabla=new MyLinkedList[this->sizeA];
 }
 
@@ -22,9 +22,9 @@ int MyHashTable::getPos(string key){
     return abs(hashCode)%this->sizeA;
 }
 
-void MyHashTable::put(string key, int value, vector<string> fecha){
+void MyHashTable::put(string key, int date){
     int pos=getPos(key);
-    this->tabla[pos].insertFirst(key,value,fecha);
+    this->tabla[pos].insertFirst(key,date);
     this->size++;
 }
 
@@ -36,6 +36,11 @@ int MyHashTable::get(string key){
 }
 
 void MyHashTable::print(string key)
+{
+    //
+}
+
+void MyHashTable::update(int date)
 {
 
 }
