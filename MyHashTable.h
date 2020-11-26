@@ -11,6 +11,7 @@ class MyHashTable{
         int size;//El número de elementos que tiene almacenado
         int sizeA; //El tamaño del arreglo
         MyLinkedList* tabla;
+        void loadData(string archivo);
         void rehashing();
         int getPos(string key);
         void put(string key, int date);

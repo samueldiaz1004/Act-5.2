@@ -4,12 +4,16 @@ using namespace std;
 
 MyHashTable::MyHashTable(string archivo){
     this->size=0;
-    this->sizeA=4027;   // Ajustar tamaño inicial si es necesario
+    this->sizeA=4027;   // Ajustar tamaï¿½o inicial si es necesario
     this->tabla=new MyLinkedList[this->sizeA];
 }
 
 MyHashTable::~MyHashTable(){
 
+}
+
+void MyHashTable::loadData(string archivo){
+    
 }
 
 void MyHashTable::rehashing(){
