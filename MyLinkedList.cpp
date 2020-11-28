@@ -8,6 +8,9 @@ MyLinkedList::MyLinkedList(){
 }
 
 MyLinkedList::~MyLinkedList(){
+    while (!isEmpty()){
+        removeFirst();
+    }
 }
 
 int MyLinkedList::length(){

@@ -10,7 +10,7 @@ MyHashTable::MyHashTable(string archivo){
 }
 
 MyHashTable::~MyHashTable(){
-
+    delete [] this->tabla;
 }
 
 void MyHashTable::loadData(string archivo){
@@ -111,7 +111,6 @@ void MyHashTable::print(string key)
 {
     MyNodoLL* node = get(key);
     if (node != nullptr) {
-        sort(node->date.begin(), node->date.end());
         cout << "Resumen de IP" << endl;
         cout << "IP: " << node->key << endl;
         cout << "Numero de accesos: " << node->access << endl;
