@@ -1,5 +1,5 @@
 /*/
-Act 5.2 - Actividad Integral sobre el uso de códigos hash
+Act 5.2 - Actividad Integral sobre el uso de codigos hash
 
 Owen Jauregui Borbon - A01638122
 Luis Humberto Sanchez Vaca - A01638029
@@ -14,7 +14,7 @@ using namespace std;
 
 int main()
 {
-    MyHashTable ht("bitacoraAuxiliar.txt");
+    MyHashTable ht("bitacora2.txt");
     ht.print("10.15.176.220");
     return 0;
 }

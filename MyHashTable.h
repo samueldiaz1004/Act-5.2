@@ -19,7 +19,7 @@ class MyHashTable{
         int getPos(string key);
         void put(string key, int date);
         MyNodoLL* get(string key);
-        void update(int date);
+        void update(MyNodoLL* dato, int date);
 
     public:
         MyHashTable(string archivo);

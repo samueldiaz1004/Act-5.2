@@ -4,7 +4,7 @@ using namespace std;
 
 MyHashTable::MyHashTable(string archivo){
     this->size=0;
-    this->sizeA=4027;   // Ajustar tama�o inicial si es necesario
+    this->sizeA=4027;   // Ajustar tamano inicial si es necesario
     this->tabla=new MyLinkedList[this->sizeA];
     loadData(archivo);
 }
@@ -65,8 +65,9 @@ void MyHashTable::loadData(string archivo){
             put(ip, fecha);
         }
     } else {
-        throw invalid_argument("El archivo "+archivo+" no existe");
+        throw invalid_argument("El archivo " + archivo + " no existe");
     }
+    data.close();
 }
 
 void MyHashTable::rehashing(){
@@ -80,11 +81,25 @@ int MyHashTable::getPos(string key){
 }
 
 void MyHashTable::put(string key, int date){
+    if ((float)this->size / this->sizeA >= 0.75){
+        rehashing();
+    }
     int pos=getPos(key);
-    this->tabla[pos].insertFirst(key,date);
-    this->size++;
+    MyNodoLL* dato = get(key);
+    if (dato != nullptr){
+        update(dato, date);
+    }
+    else{
+        this->tabla[pos].insertFirst(key, date);
+        this->size++;
+    }
 }
 
+
+void MyHashTable::update(MyNodoLL* dato, int date) {
+    dato->access++;
+    dato->date.push_back(date);
+}
 
 MyNodoLL* MyHashTable::get(string key){
     int pos=getPos(key);
@@ -95,50 +110,50 @@ MyNodoLL* MyHashTable::get(string key){
 void MyHashTable::print(string key)
 {
     MyNodoLL* node = get(key);
-    cout << "Resumen de IP" << endl;
-    cout << "IP: " << node->key << endl;
-    cout << "Numero de accesos: " << node->access << endl;
-    cout << "Fechas de acceso: ";
+    if (node != nullptr) {
+        sort(node->date.begin(), node->date.end());
+        cout << "Resumen de IP" << endl;
+        cout << "IP: " << node->key << endl;
+        cout << "Numero de accesos: " << node->access << endl;
+        cout << "Fechas de acceso: ";
 
-    sort(node->date.begin(),node->date.end());
+        sort(node->date.begin(), node->date.end());
 
-    string meses[] = {"Jan", "Feb", "Mar", "Apr",
-                    "May", "Jun", "Jul", "Aug",
-                    "Sep", "Oct", "Nov", "Dec"};
+        string meses[] = {"Jan", "Feb", "Mar", "Apr",
+                          "May", "Jun", "Jul", "Aug",
+                          "Sep", "Oct", "Nov", "Dec"};
 
-    int fecha, mes, dia, hora, minuto;
+        int fecha, mes, dia, hora, minuto;
 
-    for(int i = 0; i < node->date.size(); i++){
-        fecha = node->date[i];
-        mes = fecha / 2678400;
-        cout << meses[mes-1] << " ";
-        fecha = fecha - mes*2678400;
-        dia = fecha/86400;
-        cout << dia << " ";
-        fecha = fecha - dia*86400;
-        hora = fecha / 3600;
-        cout << hora << ":";
-        fecha = fecha - hora*3600;
-        minuto = fecha / 60;
-        if(minuto < 10){
-            cout << "0" << to_string(minuto) << ":";
+        for (int i = 0; i < node->date.size(); i++) {
+            fecha = node->date[i];
+            mes = fecha / 2678400;
+            cout << meses[mes - 1] << " ";
+            fecha = fecha - mes * 2678400;
+            dia = fecha / 86400;
+            cout << dia << " ";
+            fecha = fecha - dia * 86400;
+            hora = fecha / 3600;
+            cout << hora << ":";
+            fecha = fecha - hora * 3600;
+            minuto = fecha / 60;
+            if (minuto < 10) {
+                cout << "0" << to_string(minuto) << ":";
+            } else {
+                cout << minuto << ":";
+            }
+            fecha = fecha - minuto * 60;
+            if (fecha < 10) {
+                cout << "0" << to_string(fecha);
+            } else {
+                cout << fecha;
+            }
+            cout << " | ";
         }
-        else{
-            cout << minuto << ":";
-        }
-        fecha = fecha - minuto*60;
-        if(fecha < 10){
-            cout << "0" << to_string(fecha);
-        }
-        else{
-            cout << fecha;
-        }
-        cout << " | ";
+        cout << endl;
     }
-    cout << endl;
+    else{
+        cout << "No se encontro la IP: " << key << endl;
+    }
 }
 
-void MyHashTable::update(int date)
-{
-
-}

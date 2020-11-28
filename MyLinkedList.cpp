@@ -66,13 +66,8 @@ void MyLinkedList::removeFirst(){
 MyNodoLL* MyLinkedList::getNode(string key)
 {
     MyNodoLL* current = this->head;
-    while(current->key != key && current != nullptr){
+    while(current != nullptr && current->key != key){
         current = current->next;
     }
-    if(current->key == key){
-        return current;
-    }
-    else{
-        throw invalid_argument("No se puedo encontrar "+key+" en los registros");
-    }
+    return current;
 }
