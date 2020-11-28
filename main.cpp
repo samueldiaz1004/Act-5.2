@@ -15,6 +15,19 @@ using namespace std;
 int main()
 {
     MyHashTable ht("bitacora2.txt");
-    ht.print("10.15.176.220");
+    bool opcion;
+
+    do{
+        string ip;
+        cout << "Ingrese la IP a buscar: ";
+        cin >> ip;
+        ht.print(ip);
+        cout << "Seleccione una opcion:" << endl;
+        cout << "Hacer otra consulta - 1" << endl;
+        cout << "Salir - 0" << endl;
+        cin >> opcion;
+    }
+    while (opcion);
+
     return 0;
 }
