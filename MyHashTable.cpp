@@ -22,7 +22,6 @@ void MyHashTable::loadData(string archivo){
     string meses[] = {"Jan", "Feb", "Mar", "Apr",
                       "May", "Jun", "Jul", "Aug",
                       "Sep", "Oct", "Nov", "Dec"};
-    bool first = true;
 
     data.open(archivo.c_str());
     if (data.is_open()) {
@@ -31,14 +30,6 @@ void MyHashTable::loadData(string archivo){
             while(cont_palabra < 4) {
                 linea >> elemento;
                 if (cont_palabra == 0) {
-                    if(first) {
-                        for(int i = 3; i < elemento.size(); i++) {
-                            temp += elemento[i];
-                        }
-                        elemento = temp;
-                        temp = "";
-                        first = !first;
-                    }
                     for(int i = 0; i < 12; i++){
                         if(elemento == meses[i]){
                             fecha = (i+1)*2678400;
