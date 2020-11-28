@@ -4,7 +4,7 @@ using namespace std;
 
 MyHashTable::MyHashTable(string archivo){
     this->size=0;
-    this->sizeA=4027;   // Ajustar tamano inicial si es necesario
+    this->sizeA=389;   // Ajustar tamano inicial si es necesario
     this->tabla=new MyLinkedList[this->sizeA];
     loadData(archivo);
 }
@@ -61,7 +61,6 @@ void MyHashTable::loadData(string archivo){
                 cont_palabra++;
             }
             cont_palabra = 0;
-            //cout << fecha << endl;
             put(ip, fecha);
         }
     } else {
@@ -71,7 +70,19 @@ void MyHashTable::loadData(string archivo){
 }
 
 void MyHashTable::rehashing(){
+    int tmpSize = this->sizeA;
+    this->sizeA = 2 * this->sizeA + 1;
+    MyLinkedList* tmp = this->tabla;
+    this->tabla = new MyLinkedList[this->sizeA];
 
+    for(int i = 0; i < tmpSize; i++){
+        while(!tmp[i].isEmpty()){
+            int pos = getPos(tmp[i].getAt(0)->key);
+            tabla[pos].insertNode(tmp[i].getAt(0)->key,tmp[i].getAt(0)->date);
+            tmp[i].removeFirst();
+        }
+    }
+    delete [] tmp;
 }
 
 int MyHashTable::getPos(string key){

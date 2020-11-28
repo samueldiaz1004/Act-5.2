@@ -19,6 +19,13 @@ struct MyNodoLL{
     }
 
     MyNodoLL(string key, int date):MyNodoLL(key, date, nullptr){}
+
+    MyNodoLL(string key, vector<int> date, MyNodoLL* next){
+        this->key = key;
+        this->access = date.size();
+        this->date = date;
+        this->next = next;
+    }
 };
 
 class MyLinkedList{
@@ -34,6 +41,7 @@ class MyLinkedList{
         MyNodoLL* getAt(int pos);
         int getAt(string key);
         void insertFirst(string key, int date);
+        void insertNode(string key, vector<int> date);
         void removeFirst();
         MyNodoLL* getNode(string key);
 };

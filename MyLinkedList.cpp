@@ -52,6 +52,14 @@ void MyLinkedList::insertFirst(string key, int date){
     this->size++;
 }
 
+void MyLinkedList::insertNode(string key, vector<int> date){
+    this->head=new MyNodoLL(key,date,this->head);
+    if(this->tail==nullptr){
+        this->tail=this->head;
+    }
+    this->size++;
+}
+
 void MyLinkedList::removeFirst(){
     if(this->size>0){
         MyNodoLL* tmp=this->head;
