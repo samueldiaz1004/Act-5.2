@@ -1,7 +1,9 @@
 #ifndef MYHASHTABLE_H
 #define MYHASHTABLE_H
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <sstream>
 #include <functional>
 #include <cmath>
 #include "MyLinkedList.h"
