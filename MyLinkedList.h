@@ -35,5 +35,6 @@ class MyLinkedList{
         int getAt(string key);
         void insertFirst(string key, int date);
         void removeFirst();
+        MyNodoLL* getNode(string key);
 };
 #endif

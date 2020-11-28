@@ -14,7 +14,7 @@ using namespace std;
 
 int main()
 {
-    MyHashTable ht("bitcora2.txt");
-
+    MyHashTable ht("bitacoraAuxiliar.txt");
+    ht.print("10.15.176.220");
     return 0;
 }

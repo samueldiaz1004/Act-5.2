@@ -62,3 +62,17 @@ void MyLinkedList::removeFirst(){
         throw invalid_argument("No se puede borrar el inicio de una lista vacía");
     }
 }
+
+MyNodoLL* MyLinkedList::getNode(string key)
+{
+    MyNodoLL* current = this->head;
+    while(current->key != key && current != nullptr){
+        current = current->next;
+    }
+    if(current->key == key){
+        return current;
+    }
+    else{
+        throw invalid_argument("No se puedo encontrar "+key+" en los registros");
+    }
+}

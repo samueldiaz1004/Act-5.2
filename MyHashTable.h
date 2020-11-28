@@ -6,6 +6,7 @@
 #include <sstream>
 #include <functional>
 #include <cmath>
+#include <algorithm>
 #include "MyLinkedList.h"
 
 class MyHashTable{
@@ -17,7 +18,7 @@ class MyHashTable{
         void rehashing();
         int getPos(string key);
         void put(string key, int date);
-        int get(string key);
+        MyNodoLL* get(string key);
         void update(int date);
 
     public:
