@@ -1,3 +1,15 @@
+/*/
+Header de clase Linked List
+
+Estructura de datos complementaria a la implementacion de la clase Hash Table
+Es una collecion linear de datos almacenados en nodos que siguen una secuencia
+determinada a partir de apuntadores.
+
+Owen Jauregui Borbon - A01638122
+Luis Humberto Sanchez Vaca - A01638029
+Samuel Alejandro Diaz del Guante Ochoa - A01637592
+/*/
+
 #ifndef MY_LINKEDLIST_H
 #define MY_LINKEDLIST_H
 #include <iostream>
@@ -8,17 +20,24 @@ using namespace std;
 struct MyNodoLL{
     string key;                 // direccion ip
     int access;                 // num de accesos
-    vector<string> date;        // lista de fechas
+    vector<int> date;        // lista de fechas
     MyNodoLL* next;
 
-    MyNodoLL(string key, int access, vector<string> date, MyNodoLL* next){
+    MyNodoLL(string key, int date, MyNodoLL* next){
         this->key = key;
-        this->access = access;
-        this->date = date;
+        this->access = 1;
+        this->date.push_back(date);
         this->next = next;
     }
 
-    MyNodoLL(string key,int access, vector<string> date):MyNodoLL(key, access, date, nullptr){}
+    MyNodoLL(string key, int date):MyNodoLL(key, date, nullptr){}
+
+    MyNodoLL(string key, vector<int> date, MyNodoLL* next){
+        this->key = key;
+        this->access = date.size();
+        this->date = date;
+        this->next = next;
+    }
 };
 
 class MyLinkedList{
@@ -32,19 +51,10 @@ class MyLinkedList{
         int length();
         bool isEmpty();
         MyNodoLL* getAt(int pos);
-        int getAt(string key); // regresa num de accesos
-        void insertFirst(string key, int access, vector<string> date);
+        int getAt(string key);
+        void insertFirst(string key, int date);
+        void insertNode(string key, vector<int> date);
         void removeFirst();
-        /*/
-        friend ostream& operator<<(ostream& os,const MyLinkedList& ll){
-            MyNodoLL* current=ll.head;
-            for(int i=0;i<ll.size;i++){
-                os<<"["<<current->key<<",";
-                os<<current->data<<"]";
-                current=current->next;
-            }
-            return os;
-        }
-        /*/
+        MyNodoLL* getNode(string key);
 };
 #endif

@@ -1,3 +1,11 @@
+/*/
+Implementacion de clase Linked List
+
+Owen Jauregui Borbon - A01638122
+Luis Humberto Sanchez Vaca - A01638029
+Samuel Alejandro Diaz del Guante Ochoa - A01637592
+/*/
+
 #include "MyLinkedList.h"
 
 using namespace std;
@@ -8,6 +16,9 @@ MyLinkedList::MyLinkedList(){
 }
 
 MyLinkedList::~MyLinkedList(){
+    while (!isEmpty()){
+        removeFirst();
+    }
 }
 
 int MyLinkedList::length(){
@@ -41,8 +52,16 @@ MyNodoLL* MyLinkedList::getAt(int pos){
     }
 }
 
-void MyLinkedList::insertFirst(string key, int access, vector<string> date){
-    this->head=new MyNodoLL(key,access,date,this->head);
+void MyLinkedList::insertFirst(string key, int date){
+    this->head=new MyNodoLL(key,date,this->head);
+    if(this->tail==nullptr){
+        this->tail=this->head;
+    }
+    this->size++;
+}
+
+void MyLinkedList::insertNode(string key, vector<int> date){
+    this->head=new MyNodoLL(key,date,this->head);
     if(this->tail==nullptr){
         this->tail=this->head;
     }
@@ -61,4 +80,13 @@ void MyLinkedList::removeFirst(){
     }else{
         throw invalid_argument("No se puede borrar el inicio de una lista vacía");
     }
+}
+
+MyNodoLL* MyLinkedList::getNode(string key)
+{
+    MyNodoLL* current = this->head;
+    while(current != nullptr && current->key != key){
+        current = current->next;
+    }
+    return current;
 }
