@@ -1,3 +1,16 @@
+/*/
+Header de clase Hash Table
+
+Una hash table es una estructura de datos, construida a partir de un arreglo.
+Emplea lo que se le conoce como llaves para mapear la posicion de cada elemento colocado.
+En esta ocasion se implemento con encadenamiento (a partir de listas enlazadas).
+Ocurre un rehashing cada vez que se alcanza un factor de carga de 0.75.
+
+Owen Jauregui Borbon - A01638122
+Luis Humberto Sanchez Vaca - A01638029
+Samuel Alejandro Diaz del Guante Ochoa - A01637592
+/*/
+
 #ifndef MYHASHTABLE_H
 #define MYHASHTABLE_H
 #include <iostream>

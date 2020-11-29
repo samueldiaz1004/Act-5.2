@@ -1,3 +1,15 @@
+/*/
+Header de clase Linked List
+
+Estructura de datos complementaria a la implementacion de la clase Hash Table
+Es una collecion linear de datos almacenados en nodos que siguen una secuencia
+determinada a partir de apuntadores.
+
+Owen Jauregui Borbon - A01638122
+Luis Humberto Sanchez Vaca - A01638029
+Samuel Alejandro Diaz del Guante Ochoa - A01637592
+/*/
+
 #ifndef MY_LINKEDLIST_H
 #define MY_LINKEDLIST_H
 #include <iostream>

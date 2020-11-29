@@ -1,3 +1,11 @@
+/*/
+Implementacion de clase Linked List
+
+Owen Jauregui Borbon - A01638122
+Luis Humberto Sanchez Vaca - A01638029
+Samuel Alejandro Diaz del Guante Ochoa - A01637592
+/*/
+
 #include "MyLinkedList.h"
 
 using namespace std;

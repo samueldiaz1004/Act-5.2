@@ -1,6 +1,10 @@
 /*/
 Act 5.2 - Actividad Integral sobre el uso de codigos hash
 
+Programa para consultar la informacion de una Ip (Ip, numero de accesos y fechas)
+almacenada en un archivo llamado "Bitacora2". Esto se logra a partir de una tabla
+hash en la que se almacenan los datos ya procesados para despues ser mostrados al ususario
+
 Owen Jauregui Borbon - A01638122
 Luis Humberto Sanchez Vaca - A01638029
 Samuel Alejandro Diaz del Guante Ochoa - A01637592
