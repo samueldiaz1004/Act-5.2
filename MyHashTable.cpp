@@ -9,7 +9,11 @@ MyHashTable::MyHashTable(string archivo){
     loadData(archivo);
 }
 
+// Destructor
+// Complejidad: O(1)
 MyHashTable::~MyHashTable(){
+    // Se libera el e espacio en memoria
+    // reservado para el arreglo
     delete [] this->tabla;
 }
 
@@ -85,36 +89,74 @@ void MyHashTable::rehashing(){
     delete [] tmp;
 }
 
+// Metodo para obtener la posicion de una key
+// Recibe el string de la key a convertir
+// Se regresa un entero con la posicion
+// Complejidad: O(1)
 int MyHashTable::getPos(string key){
+    // Se hace hash de la key con la funcion
+    // ya implementada en c++
     size_t hashT=hash<string>{}(key);
+    // Se hace un cast a integer
     int hashCode=static_cast<int>(hashT);
+    // Se regresa la posicion valida
+    // de acuerdo al tamano del arreglo
     return abs(hashCode)%this->sizeA;
 }
 
+// Metodo para insertar un elemento
+// Recibe un string con la key(ip) y la fecha del acceso
+// No regresa nada
+// Complejidad:
+//  -Sin rehashing - O(1)
+//  -Con rehashing - O(n)
 void MyHashTable::put(string key, int date){
+    // Se compruba el factor de carga
     if ((float)this->size / this->sizeA >= 0.75){
         rehashing();
     }
+    // Se obtiene la posicion de la key
     int pos=getPos(key);
+    // Se obtiene el nodo asociado a esa llave
+    // si existe
     MyNodoLL* dato = get(key);
+    // En caso de existir
     if (dato != nullptr){
+        // Se actualiza su informacion
         update(dato, date);
     }
     else{
+        // En caso contrario se inserta el nuevo
+        // elemento en su lista correspondiente
         this->tabla[pos].insertFirst(key, date);
+        // Se aumenta el numero de elementos
         this->size++;
     }
 }
 
-
+// Método auxiliara para actualizar la informacion
+// de una ip ya insertada
+// Recibe el nodo de la ip asociada y la nueva fecha
+// No regresa nada
+// Complejidad: O(1)
 void MyHashTable::update(MyNodoLL* dato, int date) {
+    // Se incrementa el numero de accesos
     dato->access++;
+    // Se agrega la nueva fecha
     dato->date.push_back(date);
 }
 
+// Metodo para obtener el nodo asociado a una key
+// Recibe la key a buscar
+// Regresa el nodo correspondiente si se encuentra
+// Complejidad: O(1)
 MyNodoLL* MyHashTable::get(string key){
+    // Se obtiene la posicicon de la key
     int pos=getPos(key);
+    // Se obtiene un apuntador a la lista
+    // de esa posicion
     MyLinkedList* lista=&this->tabla[pos];
+    // Se busca la key y se regresa su nodo
     return lista->getNode(key);
 }
 
