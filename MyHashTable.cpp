@@ -81,7 +81,7 @@ void MyHashTable::loadData(string archivo){
     data.close();
 }
 
-// Metodo para aumentar el tamaño de la tabla y redistribuir nodos
+// Metodo para aumentar el tamano de la tabla y redistribuir nodos
 // Esto ocurre cuando el factor de carga alcanza o pasa un 0.75
 // Se amplia tabla por el doble mas uno y se vuelven a insertar
 // todos los nodos de acuerdo al nuevo codigo hash
@@ -91,14 +91,14 @@ void MyHashTable::rehashing(){
     // Crear un arreglo temporal para guardar los datos ya insertados
     int tmpSize = this->sizeA;
     this->sizeA = 2 * this->sizeA + 1;
-    // Vaciar los contenidos del arreglo viejo al temporal y aumentar tamaño de la tabla
+    // Vaciar los contenidos del arreglo viejo al temporal y aumentar tamaï¿½o de la tabla
     MyLinkedList* tmp = this->tabla;
     this->tabla = new MyLinkedList[this->sizeA];
     // Recorrer tabla
     for(int i = 0; i < tmpSize; i++){
         // Por cada nodo visitado:
         while(!tmp[i].isEmpty()){
-            // Obtenr codigo hash adaptado al nuevo tamaño de la tabla
+            // Obtenr codigo hash adaptado al nuevo tamaï¿½o de la tabla
             int pos = getPos(tmp[i].getAt(0)->key);
             // Colocar nodo en la tabla nueva
             tabla[pos].insertNode(tmp[i].getAt(0)->key,tmp[i].getAt(0)->date);
@@ -155,7 +155,7 @@ void MyHashTable::put(string key, int date){
     }
 }
 
-// Método auxiliara para actualizar la informacion
+// Metodo auxiliar para actualizar la informacion
 // de una ip ya insertada
 // Recibe el nodo de la ip asociada y la nueva fecha
 // No regresa nada
