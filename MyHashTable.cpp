@@ -1,3 +1,11 @@
+/*/
+Implementacion de clase Hash Table
+
+Owen Jauregui Borbon - A01638122
+Luis Humberto Sanchez Vaca - A01638029
+Samuel Alejandro Diaz del Guante Ochoa - A01637592
+/*/
+
 #include "MyHashTable.h"
 
 using namespace std;
@@ -73,19 +81,32 @@ void MyHashTable::loadData(string archivo){
     data.close();
 }
 
+// Metodo para aumentar el tamaño de la tabla y redistribuir nodos
+// Esto ocurre cuando el factor de carga alcanza o pasa un 0.75
+// Se amplia tabla por el doble mas uno y se vuelven a insertar
+// todos los nodos de acuerdo al nuevo codigo hash
+// No recibe ni regresa algun valor
+// Complejidad computacional: O(n)
 void MyHashTable::rehashing(){
+    // Crear un arreglo temporal para guardar los datos ya insertados
     int tmpSize = this->sizeA;
     this->sizeA = 2 * this->sizeA + 1;
+    // Vaciar los contenidos del arreglo viejo al temporal y aumentar tamaño de la tabla
     MyLinkedList* tmp = this->tabla;
     this->tabla = new MyLinkedList[this->sizeA];
-
+    // Recorrer tabla
     for(int i = 0; i < tmpSize; i++){
+        // Por cada nodo visitado:
         while(!tmp[i].isEmpty()){
+            // Obtenr codigo hash adaptado al nuevo tamaño de la tabla
             int pos = getPos(tmp[i].getAt(0)->key);
+            // Colocar nodo en la tabla nueva
             tabla[pos].insertNode(tmp[i].getAt(0)->key,tmp[i].getAt(0)->date);
+            // Borrar nodo antiguo
             tmp[i].removeFirst();
         }
     }
+    // Borrar arreglo con informacion vieja para evitar memory leaks
     delete [] tmp;
 }
 
@@ -134,7 +155,7 @@ void MyHashTable::put(string key, int date){
     }
 }
 
-// MÃ©todo auxiliara para actualizar la informacion
+// Método auxiliara para actualizar la informacion
 // de una ip ya insertada
 // Recibe el nodo de la ip asociada y la nueva fecha
 // No regresa nada
@@ -160,48 +181,68 @@ MyNodoLL* MyHashTable::get(string key){
     return lista->getNode(key);
 }
 
+// Metodo para despliegar informacion de la Ip seleccionada
+// Recibe como parametro la Ip sin la informacion del puerto
+// No regresa algun valor
+// Complejidad computacional: O(n)
 void MyHashTable::print(string key)
 {
+    // Obtener nodo para acceder a toda su informacion
     MyNodoLL* node = get(key);
+    // Revisar que si exista en los registros de la tabla
     if (node != nullptr) {
+        // Imprimir a pantalla informacion de la ip seleccionada
         cout << "Resumen de IP" << endl;
         cout << "IP: " << node->key << endl;
         cout << "Numero de accesos: " << node->access << endl;
         cout << "Fechas de acceso: ";
-
+        // Acomodar las fechas de acceso de forma ascendete
         sort(node->date.begin(), node->date.end());
-
+        // Arreglo de referencia para convertir valor numericos de las fechas
+        // a un formato de caracteres
         string meses[] = {"Jan", "Feb", "Mar", "Apr",
                           "May", "Jun", "Jul", "Aug",
                           "Sep", "Oct", "Nov", "Dec"};
-
         int fecha, mes, dia, hora, minuto;
-
+        // Formato de impresion de las fechas
+        // Ej: [mes] [dia] [hora]:[minutos][segundos] | [mes] [dia] ...
+        // Ej: Oct 9 3:10:23 | Oct 10 10:11:09 | Oct 10 12:22:21 | ...
         for (int i = 0; i < node->date.size(); i++) {
+            // Dado a que las fechas son la suma de tiempo en segundos,
+            // se hace lo contrario para conseguir cada uno de sus elementos
             fecha = node->date[i];
+            // Operaciones para obtener mes
             mes = fecha / 2678400;
             cout << meses[mes - 1] << " ";
+            // Operaciones para obtener dia
             fecha = fecha - mes * 2678400;
             dia = fecha / 86400;
             cout << dia << " ";
+            // Operaciones para obtener hora
             fecha = fecha - dia * 86400;
             hora = fecha / 3600;
             cout << hora << ":";
+            // Operaciones para obtener minutos
             fecha = fecha - hora * 3600;
             minuto = fecha / 60;
+            // Ajustar a formato de impresion. Ej: Feb 10 5:01:22
             if (minuto < 10) {
                 cout << "0" << to_string(minuto) << ":";
             } else {
                 cout << minuto << ":";
             }
+            // Operaciones para obtener los segundos restantes
             fecha = fecha - minuto * 60;
+            // Ajustar a formato de impresion. Ej: Apr 29 11:55:09
             if (fecha < 10) {
                 cout << "0" << to_string(fecha);
             } else {
                 cout << fecha;
             }
+            // Separar cada fecha
             cout << " | ";
         }
+        // Salto de linea al finalizar impresion
         cout << endl;
     }
     else{
