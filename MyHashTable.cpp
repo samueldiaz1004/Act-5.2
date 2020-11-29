@@ -10,6 +10,8 @@ Samuel Alejandro Diaz del Guante Ochoa - A01637592
 
 using namespace std;
 
+// Constructor
+// Complejidad: O(n)
 MyHashTable::MyHashTable(string archivo){
     this->size=0;
     this->sizeA=389;   // Ajustar tamano inicial si es necesario
@@ -25,33 +27,57 @@ MyHashTable::~MyHashTable(){
     delete [] this->tabla;
 }
 
+// Metodo para extraer e insertar la informacion 
+// de los elementos desde un archivo .txt
+// Recibe un string con el nombre del archivo
+// del que se van a extraer los elementos
+// No se regresa ningun valor
+// Complejidad: O(n)
 void MyHashTable::loadData(string archivo){
-    ifstream data;
+    ifstream data; // Archivo de entrada
+    // Strings para la separacion de datos
     string elemento = "", ip, temp = "", linea_;
-    stringstream aux, linea;
-    int cont_palabra = 0, factorTemp;
-    int fecha;
+    // Stream de string para poder separar datos
+    // de manera sencilla
+    stringstream aux, linea; 
+    int cont_palabra = 0, factorTemp; // Contadores aux
+    int fecha; // Fecha en formato para ordenamiento
+    // Arreglo con los nombres de los meses para 
+    // transformarlos a int
     string meses[] = {"Jan", "Feb", "Mar", "Apr",
                       "May", "Jun", "Jul", "Aug",
                       "Sep", "Oct", "Nov", "Dec"};
 
+    // Inicio de lectura del archivo
     data.open(archivo.c_str());
     if (data.is_open()) {
+        // Lectura de cada linea
         while(getline(data, linea_)) {
             linea.str(linea_);
+            // Ciclo para extraer los primeros 4 datos separados
+            // por caracteres de espacio
             while(cont_palabra < 4) {
+                // Extraccion del cada dato separado por coma
                 linea >> elemento;
+
+                // Condicionales para separar los datos del formato
                 if (cont_palabra == 0) {
+                    // Ciclo para saber el numero del mes dado
                     for(int i = 0; i < 12; i++){
                         if(elemento == meses[i]){
+                            // Se asigna el mes en formato a la fecha
                             fecha = (i+1)*2678400;
                         }
                     }
                 } else if (cont_palabra == 1) {
+                    // Se añade el dia en formato a la fecha
                     fecha += stoi(elemento)*86400;
                 } else if (cont_palabra == 2) {
+                    // Se extrae la hora, los minutos y los seguntos
+                    // y se le asignan a la fehca en formato
                     factorTemp = 3600;
                     for(int i = 0; i < elemento.size(); i++) {
+                        //Se separa la hora mediante el caracter ':'
                         if(elemento[i] != ':' && i < elemento.size()) {
                             temp += elemento[i];
                         } else {
@@ -65,6 +91,7 @@ void MyHashTable::loadData(string archivo){
                 } else if (cont_palabra == 3) {
                     int i = 0;
                     ip = "";
+                    // Se extrae la ip hasta encontrar el inicio del puerto
                     while(elemento[i] != ':') {
                         ip += elemento[i];
                         i++;
@@ -73,11 +100,14 @@ void MyHashTable::loadData(string archivo){
                 cont_palabra++;
             }
             cont_palabra = 0;
+            // Se agrega el elemento con la ip y la fecha en formato
             put(ip, fecha);
         }
     } else {
+        // En caso de no encontrar el archivo, se arroja una excepcion
         throw invalid_argument("El archivo " + archivo + " no existe");
     }
+    // Se cierra el archivo
     data.close();
 }
 
